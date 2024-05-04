@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import pandas as pd
 import numpy as np
+from flask_cors import CORS
 from ML_Model.Inference import infer
 
 app= Flask(__name__)
+CORS(app)
+
 @app.route('/')
 def home():
     print("working")
@@ -38,8 +41,9 @@ def predict():
 
 @app.route('/api-predict', methods= ['POST'])
 def api_predict():
+    print('intruder')
     data= request.get_json(force=True)
-    inputs= [np.array(list(data.values()))]
+    inputs= data['inputData']
     inputs[0]= float(inputs[0])
     input= pd.DataFrame({'Age':[inputs[0]], 
         'Feeling sad or Tearful':[inputs[1]], 
@@ -53,14 +57,18 @@ def api_predict():
         'Suicide attempt':[inputs[9]]})
     
     prediction= infer(input)
-    
+
     if (prediction[0]==1):
-        output= 'Depressed'
+        output= {'prediction': 'our predictions is: Depressed',
+                 'message': "Don't worry about your results, please check out our following suggested articles for your well being:",
+                 'article1': '1. https://www.marchofdimes.org/sites/default/files/2023-04/CS_MOD_ISWM_ShortForm_Mindfulness.pdf',
+                 'article2': '2. https://www.fammed.wisc.edu/files/webfm-uploads/documents/outreach/im/handout_ppd.pdf',
+                 'article3': '3. https://drnozebest.com/blogs/the-doctor-is-in/5-relaxation-techniques-that-support-postpartum-mental-health'}
     elif (prediction[0]==0):
-        output= 'Healthy'
+        output= {'prediction': 'our prediction is: Healthy'}
     else:
-        output= ''
-    
+        output= {'prediction': 'error, pls check your input and try again'}
+    print(output)
     return output
 
 if __name__=='__main__':
