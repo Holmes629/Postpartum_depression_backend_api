@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTR-8'>
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel= 'stylesheet' type= 'text/css'>
+        <link href= 'https://fonts.googleapis.com/css?family=Arimo' rel= 'stylesheet' type= 'text/css'>
+        <link href= 'https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+        <link href= 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel= 'stylesheet' tyupe= 'text/css'>
+        <link rel="stylesheet" href="./static/css/style.css" />
+    </head>
+    <body>
+        <div class="login-container">
+            <div class='login'>
+                <h1> Postpartum Depression Prediction </h1>
+                <form action='{{url_for('predict')}}' method= 'post' >
+                    <p>Enter your Age</p>
+                    <input type='int' name= "Age" placeholder= "Enter Age" required= 'required'>
+                    
+                    <p>Feelings sad or Tearful?</p>
+                    <input type='text' name= "Feeling sad or Tearful" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Irribale towards baby and partner?</p>
+                    <input type='text' name= "Irritable towards baby & partner" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Trouble sleeping at night?</p>
+                    <input type='text' name= "Trouble sleeping at night" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Problems concentrating or making decisions?</p>
+                    <input type='text' name= "Problems concentrating or making decision" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Overeating or loss of appetite?</p>
+                    <input type='text' name= "Overeating or loss of appetite" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Feeling anxious?</p>
+                    <input type='text' name= "Feeling anxious" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Feeling of guilt?</p>
+                    <input type='text' name= "Feeling of guilt" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Problems of bonding with baby?</p>
+                    <input type='text' name= "Problems of bonding with baby" placeholder= "Enter text" required= 'required'>
+                    
+                    <p>Suicide attempt?</p>
+                    <input type='text' name= "Suicide attempt" placeholder= "Enter text" required= 'required'>
+
+                    <button type= "submit" class= "btn btn-primary btn-block btn-large">Predict</button>
+                </form>
+            </div>
+            <div class="results-container">
+                <h1>Results</h1>
+                <p>Our Prediction is: <b>{{ prediction_text1 }}</b></p>
+            </div>
+        </div>
+    </body>
+</html>
