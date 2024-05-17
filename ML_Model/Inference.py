@@ -2,6 +2,7 @@ import os
 import pickle
 import pandas as pd
 import re 
+from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.porter import PorterStemmer
 
 # Reading the datasets
@@ -41,8 +42,11 @@ def infer(inputs):
 
     # 3. Vectorization (convert text to numerical equivalents)
     print('4. Performing Vectorization.... ')
+    vectorizer= TfidfVectorizer()
     def vectorize(text): # return score between 0 to 5
         text= text.split()
+        temp= text
+        temp= vectorizer.fit_transform(temp).toarray()
         yes_equil= ['ye', 'yeah', "affirmative", "aye", "indeed", "certainly", "absolutely", "sure", "yeah", "yep", "yah", "right", "positive", "agreed", "true", "correct", "affirm", "very well", "bet", "ofcourse"]
         often_equil= ['habitually', 'sometimes', 'generally', 'constantly', 'repeatedly', 'regularly', 'routinely', 'consistently', 'often', 'commonly', 'usually', 'oftentimes', 'frequently', 'typically', 'customarily']
         two_equil= ['two']
